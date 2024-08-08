@@ -15,7 +15,7 @@ public class Geometry {
         Rectangle.printRectangleArea(new Rectangle(7.0,9.0));
 
         Triangle.printTriangleArea(new Triangle(5.,5.,5.));
-        Triangle.printTrianglePerimeter(new Triangle(3.,3.,3));
+        Triangle.printTrianglePerimeter(new Triangle(3.,3.,3.));
 
         Circle.printCircleArea(new Circle(6.));
         Circle.printCirclePerimeter(new Circle(6.));

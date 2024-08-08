@@ -7,19 +7,13 @@ public class CircleTests {
     @Test
     void canCalculateArea(){
         var c=new Circle(6.);
-        double result=c.circleArea(c.r());
-        double scale= Math.pow(10,6);
-        result = Math.ceil(result * scale) / scale;
-        Assertions.assertEquals(113.097336,result);
+        double result=c.circleArea();
+        Assertions.assertEquals(113.09733552923255,result);
     }
 
     @Test
     void canCalculatePerimeter(){
-        var c=new Circle(6.);
-        double result=c.circlePerimeter(c.r());
-        double scale= Math.pow(10,6);
-        result = Math.ceil(result * scale) / scale;
-        Assertions.assertEquals(37.699112,result);
+        Assertions.assertEquals(37.69911184307752,new Circle(6.).circlePerimeter());
     }
 
 
