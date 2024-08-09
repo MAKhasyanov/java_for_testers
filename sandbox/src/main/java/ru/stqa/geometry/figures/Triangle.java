@@ -8,8 +8,8 @@ public record Triangle(double a, double b,double c) {
     }
 
     public double triangleArea() {
-        var p=(a+b+c)/2;
-        return Math.sqrt(p*(p-a)*(p-b)*(p-c));
+        var p=(trianglePerimeter())/2;
+        return Math.sqrt(p*(p-this.a)*(p-this.b)*(p-this.c));
     }
 
     public static void printTrianglePerimeter(Triangle t){
@@ -18,7 +18,7 @@ public record Triangle(double a, double b,double c) {
     }
 
     public double trianglePerimeter() {
-        return a+b+c;
+        return this.a+this.b+this.c;
     }
 
 
