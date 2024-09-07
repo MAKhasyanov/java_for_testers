@@ -1,7 +1,9 @@
 package tests;
 
+import model.ContactData;
 import model.GroupData;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 
 public class GroupRemovalTests extends TestBase{
 
@@ -12,5 +14,4 @@ public class GroupRemovalTests extends TestBase{
         }
         app.groups().removeGroup();
     }
-
 }

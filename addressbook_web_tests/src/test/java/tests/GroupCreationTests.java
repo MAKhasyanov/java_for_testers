@@ -19,5 +19,4 @@ public class GroupCreationTests extends TestBase{
     public void canCreateGroupWithNameOnly() {
         app.groups().CreateGroup(new GroupData().withName("some name"));
     }
-
 }
