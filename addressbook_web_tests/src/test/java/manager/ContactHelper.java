@@ -47,8 +47,9 @@ public class ContactHelper extends HelperBase{
         type(By.name("firstname"), contact.firstname());
         type(By.name("middlename"), contact.middlename());
         type(By.name("lastname"), contact.lastname());
-        type(By.name("nickname"), contact.nickname());
+        type(By.name("address"), contact.address());
         type(By.name("mobile"), contact.mobile());
+        attach(By.name("photo"), contact.photo());
     }
 
     private void initContactCreation() {
@@ -56,7 +57,7 @@ public class ContactHelper extends HelperBase{
     }
 
     private void openContactsPage() {
-        if (!manager.isElementPresernt(By.name("new"))) {
+        if (!manager.isElementPresernt(By.linkText("Last name"))) {
             returnToContactsPage();
         }
     }
@@ -109,9 +110,10 @@ public class ContactHelper extends HelperBase{
             var id = checkbox.getAttribute("id");
             var ln = td.findElement(By.cssSelector("td:nth-child(2)")).getText();
             var fn = td.findElement(By.cssSelector("td:nth-child(3)")).getText();
+            var ad = td.findElement(By.cssSelector("td:nth-child(4)")).getText();
             var ph = td.findElement(By.cssSelector("td:nth-child(6)")).getText();
 
-            contacts.add(new ContactData().withId(id).withFirstName(fn).withLastName(ln).withMobile(ph));
+            contacts.add(new ContactData().withId(id).withFirstName(fn).withLastName(ln).withAddress(ad).withMobile(ph));
         }
         return contacts;
     }

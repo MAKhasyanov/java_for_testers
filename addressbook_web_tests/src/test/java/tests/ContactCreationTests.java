@@ -1,5 +1,6 @@
 package tests;
 
+import common.CommonFunctions;
 import model.ContactData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -17,26 +18,27 @@ public class ContactCreationTests extends TestBase{
             for (var middlename:List.of("","Middle name")){
                 for(var lastname:List.of("","Last name")){
                     for (var nickname:List.of("","Nickname")){
-                        for(var mobile:List.of("","")){
-                            result.add(new ContactData()
+                              result.add(new ContactData()
                                     .withFirstName(firstname)
                                   // .withMiddleName(middlename)
                                     .withLastName(lastname)
-                                  //  .withNickname(nickname)
-                                    .withMobile(mobile))
+                                  //  .withNickname(address)
+                                   // .withMobile(mobile)
+                                    .withPhoto(randomFile("src/test/resources/images")))
                             ;
-                        }
+
                     }
                 }
             }
         }
         for (int i=0;i<3;i++) {
             result.add(new ContactData()
-                    .withFirstName(randomString(i*10))
+                    .withFirstName(CommonFunctions.randomString(i*10))
                    // .withMiddleName(randomString(i*10))
-                    .withLastName(randomString(i*10))
+                    .withLastName(CommonFunctions.randomString(i*10))
                   //  .withNickname(randomString(i*10))
-                    .withMobile(randomString(i*10)));
+                    .withMobile(CommonFunctions.randomString(i*10))
+                    .withPhoto(randomFile("src/test/resources/images")));
         }
         return result;
     }
@@ -56,14 +58,19 @@ public class ContactCreationTests extends TestBase{
         };
         newContacts.sort(compareById);
         var expectedList=new ArrayList<>(oldContacts);
-        expectedList.add(contact.withId(newContacts.get(newContacts.size()-1).id()).withFirstName(contact.firstname()).withLastName(contact.lastname()).withMobile(contact.mobile()));
+        expectedList.add(contact.withId(newContacts.get(newContacts.size()-1).id())
+                .withFirstName(contact.firstname())
+                .withLastName(contact.lastname())
+                .withAddress(contact.address())
+                .withMobile(contact.mobile())
+                .withPhoto(""));
         expectedList.sort(compareById);
         Assertions.assertEquals(newContacts,expectedList);
     }
 
     public static List<ContactData> negativeContactProvider() {
         var result = new ArrayList<ContactData>(List.of(
-                new ContactData("", "First name'","","","","")));
+                new ContactData("", "First name'","","","","","")));
         return result;
     }
 

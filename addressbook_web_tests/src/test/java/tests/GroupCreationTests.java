@@ -1,5 +1,6 @@
 package tests;
 
+import common.CommonFunctions;
 import model.GroupData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -23,9 +24,9 @@ public class GroupCreationTests extends TestBase{
         }
         for(int i=0;i<5;i++) {
             result.add(new GroupData()
-                    .withName(randomString(i*10))
-                    .withHeader(randomString(i*10))
-                    .withFooter(randomString(i*10)));
+                    .withName(CommonFunctions.randomString(i*10))
+                    .withHeader(CommonFunctions.randomString(i*10))
+                    .withFooter(CommonFunctions.randomString(i*10)));
         }
         return result;
     }
@@ -35,7 +36,6 @@ public class GroupCreationTests extends TestBase{
     public void canCreateMultipleGroups(GroupData group) {
         var oldGroups =app.groups().getList();
         app.groups().CreateGroup(group);
-        int newGroupCount=app.groups().getCount();
         var newGroups =app.groups().getList();
         Comparator<GroupData> compareById = (o1, o2) -> {
             return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
