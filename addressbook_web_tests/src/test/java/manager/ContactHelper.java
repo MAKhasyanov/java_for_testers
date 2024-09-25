@@ -3,6 +3,9 @@ package manager;
 import model.ContactData;
 import org.openqa.selenium.By;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ContactHelper extends HelperBase{
 
     public ContactHelper(ApplicationManager manager) {
@@ -16,15 +19,16 @@ public class ContactHelper extends HelperBase{
         returnToContactsPage();
 
     }
-    public void RemoveContact(){
+    public void RemoveContact(ContactData contact){
         openContactsPage();
+        selectContact(contact);
         deleteContact();
 
     }
 
     private void deleteContact() {
-        selectContact();
         removeSelectedContacts();
+        returnToContactsPage();
     }
 
     private void removeSelectedContacts() {
@@ -57,9 +61,9 @@ public class ContactHelper extends HelperBase{
         }
     }
 
-    public void modifyContact(ContactData modify) {
+    public void modifyContact(ContactData contact,ContactData modify) {
         openContactsPage();
-        selectContact();
+        selectContact(contact);
         initContactModification();
         fillContactForm(modify);
         submitContactModification();
@@ -74,8 +78,8 @@ public class ContactHelper extends HelperBase{
         click(By.xpath("//img[@alt='Edit']"));
     }
 
-    private void selectContact() {
-        click(By.name("selected[]"));
+    private void selectContact(ContactData contact) {
+        click(By.cssSelector(String.format("input[value='%s']",contact.id())));
     }
 
     public int getCount() {
@@ -94,5 +98,21 @@ public class ContactHelper extends HelperBase{
         for (var checkbox:checkboxes){
             checkbox.click();
         }
+    }
+
+    public List<ContactData> getList() {
+        openContactsPage();
+        var contacts=new ArrayList<ContactData>();
+        var tr=manager.driver.findElements(By.cssSelector("tr[name=\"entry\"]"));
+        for (var td:tr) {
+            var checkbox = td.findElement(By.name("selected[]"));
+            var id = checkbox.getAttribute("id");
+            var ln = td.findElement(By.cssSelector("td:nth-child(2)")).getText();
+            var fn = td.findElement(By.cssSelector("td:nth-child(3)")).getText();
+            var ph = td.findElement(By.cssSelector("td:nth-child(6)")).getText();
+
+            contacts.add(new ContactData().withId(id).withFirstName(fn).withLastName(ln).withMobile(ph));
+        }
+        return contacts;
     }
 }
