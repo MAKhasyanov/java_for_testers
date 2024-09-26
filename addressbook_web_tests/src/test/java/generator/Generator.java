@@ -4,7 +4,10 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import common.CommonFunctions;
+import model.ContactData;
 import model.GroupData;
 
 import java.io.File;
@@ -61,7 +64,18 @@ public class Generator {
     }
 
     private Object generateContacts() {
-        return null;
+        var result=new ArrayList<ContactData>();
+        for(int i=0;i<count;i++) {
+            result.add(new ContactData()
+                    .withFirstName(CommonFunctions.randomString(i * 10))
+                    // .withMiddleName(randomString(i*10))
+                    .withLastName(CommonFunctions.randomString(i * 10))
+                    //  .withNickname(randomString(i*10))
+                    .withMobile(CommonFunctions.randomString(i * 10))
+                    //.withPhoto(CommonFunctions.randomFile("src/test/resources/images"))
+                    );
+        }
+        return result;
     }
 
     private void save(Object data) throws IOException {
@@ -74,6 +88,12 @@ public class Generator {
 
                 writer.write(json);
             }
+        }if ("yaml".equals(format)){
+            var mapper=new YAMLMapper();
+            mapper.writeValue(new File(output),data);
+        }if ("xml".equals(format)){
+            var mapper=new XmlMapper();
+            mapper.writeValue(new File(output),data);
         }else {
             throw  new IllegalArgumentException("Unknown type"+type);
         }

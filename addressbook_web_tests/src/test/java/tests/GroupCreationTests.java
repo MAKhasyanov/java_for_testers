@@ -46,6 +46,7 @@ public class GroupCreationTests extends TestBase {
 //                line= breader.readLine();
 //            }
 //            }
+
             var json = Files.readString(Paths.get("groups.json"));
             ObjectMapper mapper = new ObjectMapper();
 
