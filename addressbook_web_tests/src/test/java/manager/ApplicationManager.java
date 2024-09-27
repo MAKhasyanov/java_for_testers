@@ -14,17 +14,20 @@ public class ApplicationManager {
     private LoginHelper session;
     private GroupHelper groups;
     private ContactHelper contacts;
-private Properties properties;
+    private JdbcHelper jdbc;
+
+    private Properties properties;
+
 
     public void init(String browser, Properties properties) {
-        this.properties=properties;
+        this.properties = properties;
         if (driver == null) {
-            if ("chrome".equals(browser)){
-                driver=new ChromeDriver();
-            }else if ("firefox".equals(browser)){
-                driver=new FirefoxDriver();
+            if ("chrome".equals(browser)) {
+                driver = new ChromeDriver();
+            } else if ("firefox".equals(browser)) {
+                driver = new FirefoxDriver();
             } else {
-                throw new IllegalArgumentException(String.format("Unknown browser %s",browser));
+                throw new IllegalArgumentException(String.format("Unknown browser %s", browser));
             }
             Runtime.getRuntime().addShutdownHook(new Thread(driver::quit));
             driver.get(properties.getProperty("web.baseUrl"));
@@ -33,24 +36,32 @@ private Properties properties;
         }
     }
 
-    public LoginHelper session(){
-        if (session==null){
-            session=new LoginHelper(this);
+    public LoginHelper session() {
+        if (session == null) {
+            session = new LoginHelper(this);
         }
         return session;
     }
-    public GroupHelper groups(){
-        if (groups==null){
-            groups=new GroupHelper(this);
+
+    public GroupHelper groups() {
+        if (groups == null) {
+            groups = new GroupHelper(this);
         }
         return groups;
     }
 
-    public ContactHelper contacts(){
-        if (contacts==null){
-            contacts=new ContactHelper( this);
+    public ContactHelper contacts() {
+        if (contacts == null) {
+            contacts = new ContactHelper(this);
         }
         return contacts;
+    }
+
+    public JdbcHelper jdbc(){
+        if (jdbc == null) {
+            jdbc = new JdbcHelper( this);
+        }
+        return jdbc;
     }
 
     public boolean isElementPresernt(By locator) {
