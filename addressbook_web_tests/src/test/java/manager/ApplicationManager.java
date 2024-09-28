@@ -15,6 +15,7 @@ public class ApplicationManager {
     private GroupHelper groups;
     private ContactHelper contacts;
     private JdbcHelper jdbc;
+    private HibernateHelper hbm;
 
     private Properties properties;
 
@@ -64,6 +65,12 @@ public class ApplicationManager {
         return jdbc;
     }
 
+    public HibernateHelper hbm(){
+        if (hbm == null) {
+            hbm = new HibernateHelper( this);
+        }
+        return hbm;
+    }
     public boolean isElementPresernt(By locator) {
         try {
             driver.findElement(locator);
