@@ -65,7 +65,7 @@ public class ContactHelper extends HelperBase{
     public void modifyContact(ContactData contact,ContactData modify) {
         openContactsPage();
         selectContact(contact);
-        initContactModification();
+        initContactModification(contact);
         fillContactForm(modify);
         submitContactModification();
         returnToContactsPage();
@@ -75,8 +75,8 @@ public class ContactHelper extends HelperBase{
         click(By.xpath("//input[@name='update']"));
     }
 
-    private void initContactModification() {
-        click(By.xpath("//img[@alt='Edit']"));
+    private void initContactModification(ContactData contact) {
+        click(By.cssSelector(String.format("[href=\"edit.php?id=%s\"]",contact.id())));
     }
 
     private void selectContact(ContactData contact) {
