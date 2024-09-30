@@ -71,7 +71,8 @@ public class Generator {
                     // .withMiddleName(randomString(i*10))
                     .withLastName(CommonFunctions.randomString(i * 10))
                     //  .withNickname(randomString(i*10))
-                    .withMobile(CommonFunctions.randomString(i * 10))
+                    //.withMobile(CommonFunctions.randomString(i * 10))
+                            .withAddress(CommonFunctions.randomString(i * 10))
                     //.withPhoto(CommonFunctions.randomFile("src/test/resources/images"))
                     );
         }
