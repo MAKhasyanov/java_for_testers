@@ -14,6 +14,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Generator {
     @Parameter(names={"--type", "-t"})
@@ -52,31 +55,53 @@ public class Generator {
         }
     }
 
+    private Object generateData(Supplier<Object> dataSupplier){
+        return Stream.generate(dataSupplier).limit(count).collect(Collectors.toList());
+//        var result=new ArrayList<Object>();
+//        for(int i=0;i<count;i++) {
+//            result.add(dataSupplier.get());
+//        }
+//        return result;
+    }
+
     private Object generateGroups() {
-        var result=new ArrayList<GroupData>();
-        for(int i=0;i<count;i++) {
-            result.add(new GroupData()
-                    .withName(CommonFunctions.randomString(i*10))
-                    .withHeader(CommonFunctions.randomString(i*10))
-                    .withFooter(CommonFunctions.randomString(i*10)));
-        }
-        return result;
+        return generateData(()->new GroupData()
+                .withName(CommonFunctions.randomString(10))
+                .withHeader(CommonFunctions.randomString(10))
+                .withFooter(CommonFunctions.randomString(10)));
+//        var result=new ArrayList<GroupData>();
+//        for(int i=0;i<count;i++) {
+//            result.add(new GroupData()
+//                    .withName(CommonFunctions.randomString(i*10))
+//                    .withHeader(CommonFunctions.randomString(i*10))
+//                    .withFooter(CommonFunctions.randomString(i*10)));
+//        }
+//        return result;
     }
 
     private Object generateContacts() {
-        var result=new ArrayList<ContactData>();
-        for(int i=0;i<count;i++) {
-            result.add(new ContactData()
-                    .withFirstName(CommonFunctions.randomString(i * 10))
-                    // .withMiddleName(randomString(i*10))
-                    .withLastName(CommonFunctions.randomString(i * 10))
-                    //  .withNickname(randomString(i*10))
-                    //.withMobile(CommonFunctions.randomString(i * 10))
-                            .withAddress(CommonFunctions.randomString(i * 10))
-                    //.withPhoto(CommonFunctions.randomFile("src/test/resources/images"))
-                    );
-        }
-        return result;
+        return generateData(()-> new ContactData()
+                        .withFirstName(CommonFunctions.randomString( 10))
+                        // .withMiddleName(randomString(i*10))
+                        .withLastName(CommonFunctions.randomString( 10))
+                        //  .withNickname(randomString(i*10))
+                        //.withMobile(CommonFunctions.randomString(i * 10))
+                        .withAddress(CommonFunctions.randomString( 10))
+                //.withPhoto(CommonFunctions.randomFile("src/test/resources/images"))
+        );
+//        var result=new ArrayList<ContactData>();
+//        for(int i=0;i<count;i++) {
+//            result.add(new ContactData()
+//                    .withFirstName(CommonFunctions.randomString(i * 10))
+//                    // .withMiddleName(randomString(i*10))
+//                    .withLastName(CommonFunctions.randomString(i * 10))
+//                    //  .withNickname(randomString(i*10))
+//                    //.withMobile(CommonFunctions.randomString(i * 10))
+//                            .withAddress(CommonFunctions.randomString(i * 10))
+//                    //.withPhoto(CommonFunctions.randomFile("src/test/resources/images"))
+//                    );
+//        }
+//        return result;
     }
 
     private void save(Object data) throws IOException {

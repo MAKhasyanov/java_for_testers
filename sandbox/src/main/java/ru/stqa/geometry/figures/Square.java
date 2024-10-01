@@ -16,6 +16,10 @@ public record Square(double side) {
     public double area() {
         return this.side*this.side;
     }
+    public static void printSquarePerimeter(Square s){
+        String text = String.format("Периметр квадрата co cтороной %f=%f", s.side, s.perimeter());
+        System.out.println(text);
+    }
 
     public double perimeter() {
         return this.side*4;
