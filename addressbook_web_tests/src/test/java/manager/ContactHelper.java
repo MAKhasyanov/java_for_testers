@@ -133,4 +133,19 @@ public class ContactHelper extends HelperBase{
         }
         return contacts;
     }
+
+    public void addContactInGroup(ContactData contact,GroupData group) {
+        openContactsPage();
+        selectContact(contact);
+        selectGroupForContact(group);
+        submitAddingContactToGroup();
+    }
+
+    private void submitAddingContactToGroup() {
+        click(By.name("add"));
+    }
+
+    private void selectGroupForContact(GroupData group) {
+        new Select(manager.driver.findElement(By.name("to_group"))).selectByValue(group.id());
+    }
 }

@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -106,6 +107,38 @@ public class ContactCreationTests extends TestBase{
         app.contacts().CreateContact(contact,group);
         var newRelated=app.hbm().getContactsInGroup(group);
         Assertions.assertEquals(oldRelated.size()+1,newRelated.size());
+    }
+    @Test
+    void  canAddContactInGroup() throws SQLException {
+        if (app.hbm().getContactCount() == 0) {
+            app.contacts().CreateContact(new ContactData("", "", "", "", "", "", "src/test/resources/images/cat.jpeg"));
+        }
+        if (app.hbm().getGroupCount() == 0) {
+            app.hbm().CreateGroup(new GroupData("", "name", "header", "footer"));
+        }
+
+        var contacts = app.hbm().getContactList();
+        var groups = app.hbm().getGroupList();
+
+        var group = app.jdbc().checkGroupHaveContact(groups);
+        if (group == null) {
+            app.hbm().CreateGroup(new GroupData());
+            groups = app.hbm().getGroupList();
+            group = app.jdbc().checkGroupHaveContact(groups);
+        }
+
+        var contact = app.jdbc().checkContactHaveGroup(contacts);
+        if (contact == null) {
+            app.hbm().CreateContact(new ContactData());
+            contacts = app.hbm().getContactList();
+            contact = app.jdbc().checkContactHaveGroup(contacts);
+        }
+
+        var oldRelated = app.hbm().getContactsInGroup(group);
+        app.contacts().addContactInGroup(contact, group);
+        var newRelated = app.hbm().getContactsInGroup(group);
+        Assertions.assertEquals(oldRelated.size() + 1, newRelated.size());
+
     }
 
 }

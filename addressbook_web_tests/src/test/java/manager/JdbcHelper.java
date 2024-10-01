@@ -1,8 +1,11 @@
 package manager;
 
+import model.ContactData;
 import model.GroupData;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,4 +46,49 @@ public class JdbcHelper extends HelperBase{
             throw new RuntimeException(e);
         }
     }
+
+    public void removeContactInGroup(int group_id) throws SQLException {
+        var conn=DriverManager.getConnection("jdbc:mysql://localhost/addressbook","root","");
+        PreparedStatement st = conn.prepareStatement(String.format("DELETE FROM address_in_groups WHERE group_id=%s limit 1", group_id));
+        st.executeUpdate();
+        st.close();
+        conn.close();
+    }
+    public ContactData checkContactHaveGroup(List<ContactData> contacts) throws SQLException {
+        var conn=DriverManager.getConnection("jdbc:mysql://localhost/addressbook","root","");
+        for (var contact:contacts){
+            PreparedStatement st = conn.prepareStatement(String.format("SELECT* FROM address_in_groups WHERE id=%s", contact.id()));
+            var result=st.executeQuery();
+            if (!result.next()){
+                result.close();
+                st.close();
+                conn.close();
+                return contact;
+            }
+            result.close();
+            st.close();
+        }
+        conn.close();
+        return null;
+    }
+
+    public GroupData checkGroupHaveContact(List<GroupData> groups) throws SQLException {
+        var conn=DriverManager.getConnection("jdbc:mysql://localhost/addressbook","root","");
+        for (var group:groups){
+            PreparedStatement st = conn.prepareStatement(String.format("SELECT* FROM address_in_groups WHERE group_id=%s", group.id()));
+            var result=st.executeQuery();
+            if (!result.next()){
+                result.close();
+                st.close();
+                conn.close();
+                return group;
+            }
+            result.close();
+            st.close();
+        }
+        conn.close();
+        return null;
+
+    }
+
 }
