@@ -104,7 +104,7 @@ public class GroupHelper extends HelperBase{
             var name=span.getText();
             var checkbox=span.findElement(By.name("selected[]"));
             var id=checkbox.getAttribute("value");
-            return  new GroupData().withId(id).withName(name)
+            return  new GroupData().withId(id).withName(name);
         })
                 .collect(Collectors.toList());
 //        for (var span:spans){
