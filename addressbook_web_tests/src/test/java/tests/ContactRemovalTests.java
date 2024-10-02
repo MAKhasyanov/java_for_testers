@@ -16,7 +16,7 @@ public class ContactRemovalTests extends TestBase {
 
 
         if (app.hbm().getContactCount() == 0) {
-            app.contacts().CreateContact(new ContactData("", "First", "Middle", "Last", "Nick", "", "", "+79260660091", "", ""));
+            app.contacts().CreateContact(new ContactData("", "First", "Middle", "Last", "Nick", "", "", "+79260660091", "", "", "", "", ""));
         }
         var oldContacts = app.hbm().getContactList();
         var rnd =new Random();
@@ -30,7 +30,7 @@ public class ContactRemovalTests extends TestBase {
     @Test
     void canRemoveAllContactsAtOnce(){
         if (app.hbm().getContactCount() == 0) {
-            app.hbm().CreateContact(new ContactData("", "First", "Middle", "Last", "Nick", "", "", "+79260660091","" , ""));
+            app.hbm().CreateContact(new ContactData("", "First", "Middle", "Last", "Nick", "", "", "+79260660091","" , "", "", "", ""));
         }
         app.contacts().removeAllContacts();
         Assertions.assertEquals(0,app.hbm().getContactCount());
@@ -39,7 +39,7 @@ public class ContactRemovalTests extends TestBase {
     @Test
     void  canRemoveContactFromGroup() throws SQLException {
         if(app.hbm().getContactCount()==0){
-            app.contacts().CreateContact(new ContactData("", "", "", "", "", "src/test/resources/images/cat.jpeg","" , "","" , ""));
+            app.contacts().CreateContact(new ContactData("", "", "", "", "", "src/test/resources/images/cat.jpeg","" , "","" , "", "", "", ""));
         }
         if (app.hbm().getGroupCount()==0){
             app.hbm().CreateGroup(new GroupData("", "name", "header", "footer"));
