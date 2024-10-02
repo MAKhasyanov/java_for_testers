@@ -1,7 +1,6 @@
 package tests;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import common.CommonFunctions;
 import model.ContactData;
@@ -13,8 +12,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -79,7 +76,7 @@ public class ContactCreationTests extends TestBase{
 
     public static List<ContactData> negativeContactProvider() {
         var result = new ArrayList<ContactData>(List.of(
-                new ContactData("", "First name'","","","","","")));
+                new ContactData("", "First name'","","","", "","" , "", "","" )));
         return result;
     }
 
@@ -111,7 +108,7 @@ public class ContactCreationTests extends TestBase{
     @Test
     void  canAddContactInGroup() throws SQLException {
         if (app.hbm().getContactCount() == 0) {
-            app.contacts().CreateContact(new ContactData("", "", "", "", "", "", "src/test/resources/images/cat.jpeg"));
+            app.contacts().CreateContact(new ContactData("", "", "", "", "", "src/test/resources/images/cat.jpeg", "", "", "","" ));
         }
         if (app.hbm().getGroupCount() == 0) {
             app.hbm().CreateGroup(new GroupData("", "name", "header", "footer"));
