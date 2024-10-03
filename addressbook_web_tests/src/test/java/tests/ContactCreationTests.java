@@ -111,7 +111,7 @@ public class ContactCreationTests extends TestBase{
             app.contacts().CreateContact(new ContactData("", "", "", "", "", "src/test/resources/images/cat.jpeg", "", "", "","", "", "", ""));
         }
         if (app.hbm().getGroupCount() == 0) {
-            app.hbm().CreateGroup(new GroupData("", "name", "header", "footer"));
+            app.groups().CreateGroup(new GroupData("", "name", "header", "footer"));
         }
 
         var contacts = app.hbm().getContactList();
@@ -119,14 +119,14 @@ public class ContactCreationTests extends TestBase{
 
         var group = app.jdbc().checkGroupHaveContact(groups);
         if (group == null) {
-            app.hbm().CreateGroup(new GroupData());
+            app.hbm().CreateGroup(new GroupData("", "name", "header", "footer"));
             groups = app.hbm().getGroupList();
             group = app.jdbc().checkGroupHaveContact(groups);
         }
 
         var contact = app.jdbc().checkContactHaveGroup(contacts);
         if (contact == null) {
-            app.hbm().CreateContact(new ContactData());
+            app.hbm().CreateContact(new ContactData("", "", "", "", "", "src/test/resources/images/cat.jpeg", "", "", "","", "", "", ""));
             contacts = app.hbm().getContactList();
             contact = app.jdbc().checkContactHaveGroup(contacts);
         }
