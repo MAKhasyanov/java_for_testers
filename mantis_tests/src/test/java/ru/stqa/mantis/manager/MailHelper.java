@@ -8,6 +8,7 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+import java.util.regex.Pattern;
 
 public class MailHelper extends HelperBase {
 
@@ -65,14 +66,14 @@ public class MailHelper extends HelperBase {
 
     }
 
-    public void drain(String username,String password){
+    public void drain(String username,String password) {
 
         try {
-            var inbox=getInbox(username,password);
+            var inbox = getInbox(username, password);
             inbox.open(Folder.READ_WRITE);
-            Arrays.stream(inbox.getMessages()).forEach(m-> {
+            Arrays.stream(inbox.getMessages()).forEach(m -> {
                 try {
-                    m.setFlag(Flags.Flag.DELETED,true);
+                    m.setFlag(Flags.Flag.DELETED, true);
                 } catch (MessagingException e) {
                     throw new RuntimeException(e);
                 }
@@ -83,6 +84,20 @@ public class MailHelper extends HelperBase {
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
-
+    }
+        public String canExtractUrl(String username, String password){
+            var messages= receive(username,
+                    password,
+                    Duration.ofSeconds(10));
+            var text=messages.get(0).content();
+            var pattern= Pattern.compile("http://\\S*");
+            var mattcher=pattern.matcher(text);
+            if(mattcher.find()){
+                var url=text.substring(mattcher.start(),mattcher.end());
+                return url;
+            }
+            else {
+                throw new RuntimeException("No email");
+            }
     }
 }
