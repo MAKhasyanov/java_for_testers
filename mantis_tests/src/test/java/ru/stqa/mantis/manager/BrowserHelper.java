@@ -15,11 +15,12 @@ public class BrowserHelper extends HelperBase{
         type(By.name("username"),username);
         type(By.name("email"),email);
         click(By.cssSelector(".width-40"));
+        click(By.cssSelector(".width-40"));
     }
     private void openLoginPage() {
         manager.driver().get(String.format("%s/login_page.php",manager.property("web.baseUrl")));
     }
-    public void finalRegistrationUser(String username, String password, String url) {
+    public void finalRegistrationUser(String url, String username, String password) {
         openLink(url);
         fillFields(username, password);
     }

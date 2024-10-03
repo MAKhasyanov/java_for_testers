@@ -100,4 +100,15 @@ public class MailHelper extends HelperBase {
                 throw new RuntimeException("No email");
             }
     }
+    public String extractUrl(String message){
+        var pattern= Pattern.compile("http://\\S*");
+        var mattcher=pattern.matcher(message);
+        var url="";
+        if(mattcher.find()){
+            url=message.substring(mattcher.start(),mattcher.end());
+
+        }
+        System.out.println(url);
+        return url;
+    }
 }
