@@ -6,21 +6,20 @@ import ru.stqa.mantis.model.DeveloperMailUser;
 
 import java.time.Duration;
 
-import static java.lang.String.format;
 
 public class UserCreationTests extends TestBase {
 
     DeveloperMailUser user;
     @Test
-    void canCreateUser() throws InterruptedException {
+    void canCreateUser()  {
         var password = "password";
         user = app.developerMail().addUser();
         var email = String.format("%s@developermail.com", user.name());
 
-        app.browser().fillFormForUsers(user.name(), email);
-
-        var message = app.developerMail().receive(user, Duration.ofSeconds(10));
-
+       app.browser().fillFormForUsers(user.name(), email);
+//        Thread.sleep(1000);
+       var message = app.developerMail().receive(user, Duration.ofSeconds(20));
+//
         var url = app.mail().extractUrl(message);
         app.browser().finalRegistrationUser(url,user.token(), password);
         app.http().login(user.name(), password);

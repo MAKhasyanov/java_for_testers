@@ -88,7 +88,7 @@ public class DeveloperMailHelper extends HelperBase {
                 }
 
             }
-            throw new RuntimeException("No mail");
+            throw new RuntimeException("No mail received");
 
         }
         String get (String url, String token){

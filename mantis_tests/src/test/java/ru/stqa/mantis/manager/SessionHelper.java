@@ -18,4 +18,8 @@ public class SessionHelper extends HelperBase{
     public boolean isLoggedIn() {
         return isElementPresent(By.cssSelector("span.user-info"));
     }
+
+    public void confirmRegistration(String url) {
+        manager.driver().get(url);
+    }
 }

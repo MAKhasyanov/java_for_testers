@@ -1,7 +1,5 @@
 package ru.stqa.mantis.model;
 
-import ru.stqa.mantis.manager.MailHelper;
-
 public record MailMessage(String from, String content) {
     public MailMessage(){
         this("","");

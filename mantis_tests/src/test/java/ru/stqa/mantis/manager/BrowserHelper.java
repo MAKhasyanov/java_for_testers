@@ -15,7 +15,6 @@ public class BrowserHelper extends HelperBase{
         type(By.name("username"),username);
         type(By.name("email"),email);
         click(By.cssSelector(".width-40"));
-        click(By.cssSelector(".width-40"));
     }
     private void openLoginPage() {
         manager.driver().get(String.format("%s/login_page.php",manager.property("web.baseUrl")));
@@ -24,12 +23,12 @@ public class BrowserHelper extends HelperBase{
         openLink(url);
         fillFields(username, password);
     }
-    private void fillFields(String username, String password) {
+    public void fillFields(String username, String password) {
         type(By.cssSelector("#password"),password);
         type(By.cssSelector("#password-confirm"),password);
         click(By.cssSelector(".width-100"));
     }
-    private void openLink(String url) {
+    public void openLink(String url) {
         manager.driver().get(url);
     }
 }
