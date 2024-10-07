@@ -11,7 +11,7 @@ import java.time.Duration;
 public class UserRegistrationsTests extends TestBase{
 
     @ParameterizedTest
-    @ValueSource(strings ={"test9"})
+    @ValueSource(strings ={"test989"})
     void canRegisterUser(String username) throws InterruptedException {
 
         var email=String.format("%s@localhost",username);

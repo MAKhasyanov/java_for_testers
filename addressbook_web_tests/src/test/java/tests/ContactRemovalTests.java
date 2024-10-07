@@ -42,7 +42,7 @@ public class ContactRemovalTests extends TestBase {
             app.contacts().CreateContact(new ContactData("", "", "", "", "", "src/test/resources/images/cat.jpeg","" , "","" , "", "", "", ""));
         }
         if (app.hbm().getGroupCount()==0){
-            app.hbm().CreateGroup(new GroupData("", "name", "header", "footer"));
+            app.groups().CreateGroup(new GroupData("", "name", "header", "footer"));
         }
 
         var group=app.hbm().getGroupList().get(0);
