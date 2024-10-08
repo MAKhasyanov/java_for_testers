@@ -8,11 +8,19 @@ version = '1.0-SNAPSHOT'
 repositories {
     mavenCentral()
 }
+def allureVersion = '2.24.0'
+def aspectJVersion = '1.9.20.1'
 
+configurations {
+    agent {
+        canBeResolved = true
+        canBeConsumed = true
+    }
+}
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
-    testImplementation 'org.seleniumhq.selenium:selenium-java:4.23.1'
+    testImplementation 'org.seleniumhq.selenium:selenium-java:4.25.0'
     implementation 'org.jcommander:jcommander:1.83'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.2'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.2'
@@ -20,6 +28,12 @@ dependencies {
     implementation 'com.mysql:mysql-connector-j:8.1.0'
     implementation 'org.hibernate.orm:hibernate-core:6.3.0.CR1'
 
+    agent "org.aspectj:aspectjweaver:$aspectJVersion"
+
+    testImplementation platform("io.qameta.allure:allure-bom:$allureVersion")
+    testImplementation "io.qameta.allure:allure-junit5"
+
+    testImplementation "org.slf4j:slf4j-simple:2.0.12"
 }
 
 test {
@@ -30,4 +44,5 @@ test {
     if (project.hasProperty("target")){
         systemProperty("target",project.property("target"))
     }
+    jvmArgs = [ "-javaagent:${configurations.agent.singleFile}" ]
 }

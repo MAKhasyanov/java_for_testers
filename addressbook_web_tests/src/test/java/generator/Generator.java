@@ -88,6 +88,7 @@ public class Generator {
                         //.withMobile(CommonFunctions.randomString(i * 10))
                         .withAddress(CommonFunctions.randomString( 10))
                 //.withPhoto(CommonFunctions.randomFile("src/test/resources/images"))
+
         );
 //        var result=new ArrayList<ContactData>();
 //        for(int i=0;i<count;i++) {

@@ -11,10 +11,11 @@ public record ContactData(
         String mobile,
         String work,
         String secondary,
-        String email, String email2, String email3) {
+        String email, String email2, String email3
+) {
 
     public ContactData(){
-        this("", "","","","", "src/test/resources/images/cat.jpeg","" , "", "", "", "", "", "");
+        this("", "","","","", "src/test/resources/images/cat.jpeg","","","","","","","");
     }
 
     public ContactData withFirstName(String firstName) {

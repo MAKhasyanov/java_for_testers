@@ -10,6 +10,7 @@ public class ContactRecord {
     @Id
     public  int id;
     public String firstname;
+    public String middlename;
     public String lastname;
     public String address;
     public String home;
