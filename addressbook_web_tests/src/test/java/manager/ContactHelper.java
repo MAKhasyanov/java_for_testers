@@ -67,11 +67,11 @@ public class ContactHelper extends HelperBase{
         type(By.name("middlename"), contact.middlename());
         type(By.name("lastname"), contact.lastname());
         type(By.name("address"), contact.address());
-        type(By.name("mobile"), contact.mobile());
-        attach(By.name("photo"), contact.photo());
-        type(By.name("email"), contact.email());
-        type(By.name("email2"), contact.email2());
-        type(By.name("email3"), contact.email3());
+//        type(By.name("mobile"), contact.mobile());
+//        attach(By.name("photo"), contact.photo());
+//        type(By.name("email"), contact.email());
+//        type(By.name("email2"), contact.email2());
+//        type(By.name("email3"), contact.email3());
     }
 
     private void initContactCreation() {

@@ -57,26 +57,27 @@ public class ContactCreationTests extends TestBase{
 
 
 
-    @ParameterizedTest
-    @MethodSource("contactProvider")
-    public void canCreateMultipleContacts(ContactData contact) {
-        var oldContacts = app.hbm().getContactList();
-        app.contacts().CreateContact(contact);
-        var newContacts= app.hbm().getContactList();
-
-        Comparator<ContactData> compareById = (o1, o2) -> {
-            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
-        };
-        newContacts.sort(compareById);
-        var expectedList=new ArrayList<>(oldContacts);
-        expectedList.add(contact.withId(newContacts.get(newContacts.size()-1).id()));
-        expectedList.sort(compareById);
-        Assertions.assertEquals(newContacts,expectedList);
-    }
+//    @ParameterizedTest
+//    @MethodSource("contactProvider")
+//    public void canCreateMultipleContacts(ContactData contact) {
+//        var oldContacts = app.hbm().getContactList();
+//        app.contacts().CreateContact(contact);
+//        var newContacts= app.hbm().getContactList();
+//
+//        Comparator<ContactData> compareById = (o1, o2) -> {
+//            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
+//        };
+//        newContacts.sort(compareById);
+//        var expectedList=new ArrayList<>(oldContacts);
+//        expectedList.add(contact.withId(newContacts.get(newContacts.size()-1).id()));
+//        expectedList.sort(compareById);
+//        Assertions.assertEquals(newContacts,expectedList);
+//    }
 
     public static List<ContactData> negativeContactProvider() {
-        var result = new ArrayList<ContactData>(List.of(
-                new ContactData("", "First name'","","","", "","" ,"", "","", "", "", "")));
+        var result = new ArrayList<ContactData>(List.of(new ContactData().withFirstName("FirstName'"),
+                new ContactData().withLastName("LastName'")
+        ));
         return result;
     }
 

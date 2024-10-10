@@ -15,7 +15,7 @@ public record ContactData(
 ) {
 
     public ContactData(){
-        this("", "","","","", "src/test/resources/images/cat.jpeg","","","","","","","");
+        this("", "","",""," ", "src/test/resources/images/cat.jpeg","","","","","","","");
     }
 
     public ContactData withFirstName(String firstName) {
