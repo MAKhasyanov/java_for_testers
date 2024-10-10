@@ -108,7 +108,7 @@ public class ContactCreationTests extends TestBase{
     @Test
     void  canAddContactInGroup() throws SQLException {
         if (app.hbm().getContactCount() == 0) {
-            app.contacts().CreateContact(new ContactData("", "", "", "", "", "src/test/resources/images/cat.jpeg", "", "", "","", "", "", ""));
+            app.contacts().CreateContact(new ContactData("", "", "", "", "", "src/test/resources/images/cat.jpeg", " ", " ", " "," ", " ", " ", " "));
         }
         if (app.hbm().getGroupCount() == 0) {
             app.groups().CreateGroup(new GroupData("", "name", "header", "footer"));
